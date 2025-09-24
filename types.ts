@@ -2,10 +2,18 @@ import React from 'react';
 
 export type Language = 'en' | 'fr' | 'it';
 
+export interface FormData {
+    name: string;
+    company: string;
+    phone: string;
+    email: string;
+}
+
 export interface HeaderContent {
   logo: string;
   nav: {
     services: string;
+
     examples: string;
     contact: string;
   };
@@ -18,7 +26,8 @@ export interface HeroContent {
 }
 
 export interface Service {
-  icon: JSX.Element;
+  // Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
+  icon: React.ReactElement;
   title: string;
   description: string;
 }
@@ -30,7 +39,8 @@ export interface ServicesContent {
 }
 
 export interface AutomationExample {
-  icon: JSX.Element;
+  // Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
+  icon: React.ReactElement;
   title: string;
   for: string;
   description: string;

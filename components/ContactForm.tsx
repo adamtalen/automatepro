@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import type { ContactContent } from '../types';
+import { GoogleGenAI } from '@google/genai';
+import type { ContactContent, FormData } from '../types';
 
 interface ContactFormProps {
   content: ContactContent;
-  onSuccess: () => void;
+  onSuccess: (emails: { adminEmail: string; userEmail: string; }, formData: FormData) => void;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({ content, onSuccess }) => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         name: '',
         company: '',
         phone: '',
@@ -32,34 +33,53 @@ const ContactForm: React.FC<ContactFormProps> = ({ content, onSuccess }) => {
         setError('');
         setIsSubmitting(true);
 
-        // --- SIMULATED BACKEND CALL ---
-        // In a real application, you would make an API call here to your backend
-        // or a service like Formspree, Netlify Forms, etc.
-        // This endpoint would handle sending the two emails.
+        try {
+            if (!process.env.API_KEY) {
+                throw new Error("API_KEY environment variable not set");
+            }
+            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-        console.log("--- SIMULATING FORM SUBMISSION ---");
-        console.log("Submitting data:", formData);
-        
-        // 1. Email to Admin
-        console.log(`Email to Admin (adam.f@talent-associates.com) would be sent with the following details:
-        Name: ${formData.name}
-        Company: ${formData.company}
-        Phone: ${formData.phone}
-        Email: ${formData.email}
-        `);
+            const adminPrompt = `You are a helpful assistant. A potential client has submitted an inquiry through the website contact form. Your task is to format this information into a professional email for the business owner. The email should be clear, concise, and easy to read. Use the following details:
+- Name: ${formData.name}
+- Company: ${formData.company || 'Not provided'}
+- Phone: ${formData.phone || 'Not provided'}
+- Email: ${formData.email}
 
-        // 2. Confirmation Email to User
-        console.log(`Confirmation email to User (${formData.email}) would be sent with a message like:
-        "Thank you for your inquiry. We will be in contact with you shortly."
-        `);
-        
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        console.log("--- SIMULATION COMPLETE ---");
+The subject line should be: "New Website Inquiry from ${formData.name}".
+Start the email body with a clear summary. Structure the contact details neatly.
+Do not add any introductory or concluding remarks beyond the raw email content.
+Output the full email, including "Subject: ..." line.`;
 
-        setIsSubmitting(false);
-        onSuccess();
+            const userPrompt = `You are a helpful assistant for AutomatePro AI. A user has just submitted an inquiry. Your task is to draft a friendly and professional confirmation email to be sent to them. The email should:
+1. Have the subject line: "Thank you for your inquiry with AutomatePro AI!".
+2. Thank them for their interest using their name, ${formData.name}.
+3. Confirm that their message has been received.
+4. Let them know that the team will review their request and get back to them shortly (usually within 24 business hours).
+5. Be signed off from "The AutomatePro AI Team".
+Do not add any introductory or concluding remarks beyond the raw email content.
+Output the full email, including "Subject: ..." line.`;
+
+            const [adminResponse, userResponse] = await Promise.all([
+                ai.models.generateContent({
+                    model: 'gemini-2.5-flash',
+                    contents: adminPrompt,
+                }),
+                ai.models.generateContent({
+                    model: 'gemini-2.5-flash',
+                    contents: userPrompt,
+                })
+            ]);
+
+            const adminEmail = adminResponse.text;
+            const userEmail = userResponse.text;
+
+            onSuccess({ adminEmail, userEmail }, formData);
+
+        } catch (err) {
+            console.error("Error generating email content:", err);
+            setError("Sorry, we couldn't process your request at the moment. Please try again later.");
+            setIsSubmitting(false);
+        }
     };
 
   return (

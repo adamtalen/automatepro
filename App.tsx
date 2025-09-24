@@ -8,20 +8,31 @@ import ContactForm from './components/ContactForm';
 import ThankYouPage from './components/ThankYouPage';
 import Footer from './components/Footer';
 import { content } from './constants/content';
-import type { Language } from './types';
+import type { Language, FormData } from './types';
+
+type GeneratedEmails = {
+    adminEmail: string;
+    userEmail: string;
+};
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('fr');
   const [view, setView] = useState<'landing' | 'thankyou'>('landing');
+  const [generatedEmails, setGeneratedEmails] = useState<GeneratedEmails | null>(null);
+  const [submittedUserEmail, setSubmittedUserEmail] = useState<string>('');
   const currentContent = content[language];
 
-  const handleFormSuccess = () => {
+  const handleFormSuccess = (emails: GeneratedEmails, formData: FormData) => {
+    setGeneratedEmails(emails);
+    setSubmittedUserEmail(formData.email);
     window.scrollTo(0, 0);
     setView('thankyou');
   };
   
   const handleReturnHome = () => {
     setView('landing');
+    setGeneratedEmails(null);
+    setSubmittedUserEmail('');
   };
 
   return (
@@ -42,7 +53,12 @@ const App: React.FC = () => {
           </div>
         </>
       ) : (
-        <ThankYouPage content={currentContent.thankYou} onReturnHome={handleReturnHome} />
+        <ThankYouPage 
+            content={currentContent.thankYou} 
+            onReturnHome={handleReturnHome} 
+            generatedEmails={generatedEmails}
+            userEmail={submittedUserEmail}
+        />
       )}
     </div>
   );
