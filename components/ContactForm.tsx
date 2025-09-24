@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { GoogleGenAI } from '@google/genai';
+// @ts-ignore
+import { GoogleGenAI } from 'https://aistudiocdn.com/google-genai-v0.15.0/index.js';
 import type { ContactContent, FormData } from '../types';
 
 interface ContactFormProps {
