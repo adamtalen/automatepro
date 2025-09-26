@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type Language = 'en' | 'fr';
+export type Language = 'en' | 'fr' | 'it';
 
 export interface FormData {
   name: string;
@@ -11,8 +11,13 @@ export interface FormData {
 }
 
 export interface HeaderContent {
-  languageSwitcher: string;
-  navLinks: { href: string; label: string }[];
+  logo: string;
+  nav: {
+    services: string;
+    examples: string;
+    ideaGenerator: string;
+    contact: string;
+  }
 }
 
 export interface HeroContent {
@@ -89,7 +94,7 @@ export interface FooterContent {
   copyright: string;
 }
 
-export interface Content {
+export interface AppContent {
   header: HeaderContent;
   hero: HeroContent;
   services: ServicesContent;
@@ -101,6 +106,6 @@ export interface Content {
   footer: FooterContent;
 }
 
-export type AllContent = {
-  [key in Language]: Content;
+export type Content = {
+  [key in Language]: AppContent;
 };
