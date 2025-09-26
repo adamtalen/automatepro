@@ -7,6 +7,7 @@ export interface FormData {
     company: string;
     phone: string;
     email: string;
+    message: string;
 }
 
 export interface HeaderContent {
@@ -63,6 +64,7 @@ export interface ContactContent {
   companyLabel: string;
   phoneLabel: string;
   emailLabel: string;
+  messageLabel: string;
   submitButton: string;
   submittingButton: string;
 }
