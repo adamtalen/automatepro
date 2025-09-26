@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import AutomationExamples from './components/AutomationExamples';
+import IdeaGenerator from './components/IdeaGenerator';
 import CallToAction from './components/CallToAction';
 import ContactForm from './components/ContactForm';
 import ThankYouPage from './components/ThankYouPage';
@@ -38,6 +39,7 @@ const App: React.FC = () => {
               <Hero content={currentContent.hero} />
               <Services content={currentContent.services} />
               <AutomationExamples content={currentContent.automationExamples} />
+              <IdeaGenerator content={currentContent.ideaGenerator} />
               <CallToAction content={currentContent.cta} />
               <ContactForm content={currentContent.contact} onSuccess={handleFormSuccess} />
             </main>

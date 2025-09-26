@@ -53,6 +53,23 @@ export interface AutomationExamplesContent {
   examples: AutomationExample[];
 }
 
+export interface WorkflowStep {
+  title: string;
+  description: string;
+}
+
+export interface IdeaGeneratorContent {
+    title: string;
+    description: string;
+    placeholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    buttonText: string;
+    buttonLoadingText: string;
+    examplePrompt: string;
+    resultsTitle: string;
+}
+
 export interface CallToActionContent {
   title: string;
   ctaButton: string;
@@ -84,6 +101,7 @@ export interface AppContent {
   hero: HeroContent;
   services: ServicesContent;
   automationExamples: AutomationExamplesContent;
+  ideaGenerator: IdeaGeneratorContent;
   cta: CallToActionContent;
   contact: ContactContent;
   thankYou: ThankYouContent;
