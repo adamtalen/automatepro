@@ -1,4 +1,10 @@
 {
-  "name": "N8N AI Automation Consultant",
-  "description": "A modern, bilingual landing page for an N8N AI Automation Consultant, showcasing high-ROI automation examples for small local professional businesses."
+  "name": "Talent Associates",
+  "short_name": "Talent Associates",
+  "description": "AI & N8N Automation Consulting",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#06b6d4",
+  "requestFramePermissions": []
 }
