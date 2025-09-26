@@ -1,5 +1,6 @@
 import React from 'react';
-import type { AutomationExamplesContent, AutomationExample } from '../types';
+// Fix: Added file extension to import path
+import type { AutomationExamplesContent, AutomationExample } from '../types.ts';
 
 interface AutomationExamplesProps {
   content: AutomationExamplesContent;

@@ -1,5 +1,6 @@
 import React from 'react';
-import type { FooterContent } from '../types';
+// Fix: Added file extension to import path
+import type { FooterContent } from '../types.ts';
 
 interface FooterProps {
   content: FooterContent;

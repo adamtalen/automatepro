@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import type { ContactContent, FormData } from '../types';
+// Fix: Added file extension to import path
+import type { ContactContent, FormData } from '../types.ts';
 
 interface ContactFormProps {
   content: ContactContent;

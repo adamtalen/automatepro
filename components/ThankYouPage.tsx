@@ -1,5 +1,6 @@
 import React from 'react';
-import type { ThankYouContent } from '../types';
+// Fix: Added file extension to import path
+import type { ThankYouContent } from '../types.ts';
 
 interface ThankYouPageProps {
   content: ThankYouContent;

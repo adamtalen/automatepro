@@ -1,5 +1,6 @@
-import React from 'react';
-import type { Language, HeaderContent } from '../types';
+import React, { useState } from 'react';
+// Fix: Added file extension to import path
+import type { Language, HeaderContent } from '../types.ts';
 
 interface HeaderProps {
   language: Language;
@@ -8,45 +9,64 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ language, setLanguage, content }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'fr' ? 'en' : 'fr');
+  };
+
   return (
-    <header className="py-4 px-4 sm:px-6 lg:px-8 backdrop-blur-lg bg-white/80 sticky top-0 z-50 border-b border-slate-900/10">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-2xl font-black text-slate-900 tracking-tighter">
-          {content.logo}
+    <header className="py-4 sm:py-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <a href="#" className="flex items-center space-x-2">
+            <svg className="h-8 w-8 text-cyan-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 16v-2m8-8h2M4 12H2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M19.778 4.222l-1.414 1.414M4.222 19.778l1.414-1.414M12 18a6 6 0 100-12 6 6 0 000 12z" />
+            </svg>
+            <span className="font-bold text-xl text-slate-800">AI Automation</span>
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {content.navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">
+                {link.label}
+              </a>
+            ))}
+            <button onClick={toggleLanguage} className="text-sm font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md hover:bg-slate-200 transition-colors">
+              {content.languageSwitcher}
+            </button>
+          </nav>
+
+          {/* Mobile Nav Toggle */}
+          <div className="md:hidden">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600 hover:text-slate-900">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-          <a href="#services" className="hover:text-cyan-500 transition-colors">{content.nav.services}</a>
-          <a href="#examples" className="hover:text-cyan-500 transition-colors">{content.nav.examples}</a>
-          <a href="#contact-form" className="hover:text-cyan-500 transition-colors">{content.nav.contact}</a>
-        </nav>
-        <div className="flex items-center space-x-2 text-sm">
-          <button
-            onClick={() => setLanguage('en')}
-            className={`px-3 py-1 rounded-md transition-colors font-medium ${
-              language === 'en' ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            EN
-          </button>
-          <span className="text-slate-300">|</span>
-          <button
-            onClick={() => setLanguage('fr')}
-            className={`px-3 py-1 rounded-md transition-colors font-medium ${
-              language === 'fr' ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            FR
-          </button>
-           <span className="text-slate-300">|</span>
-          <button
-            onClick={() => setLanguage('it')}
-            className={`px-3 py-1 rounded-md transition-colors font-medium ${
-              language === 'it' ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            IT
-          </button>
-        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="mt-4 md:hidden bg-white rounded-lg shadow-lg p-4">
+            <nav className="flex flex-col space-y-4">
+              {content.navLinks.map((link) => (
+                <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium px-2 py-1 rounded-md">
+                  {link.label}
+                </a>
+              ))}
+              <button onClick={() => { toggleLanguage(); setIsMenuOpen(false); }} className="text-sm font-semibold bg-slate-100 text-slate-700 px-3 py-2 rounded-md hover:bg-slate-200 transition-colors text-left">
+                Switch to {content.languageSwitcher}
+              </button>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

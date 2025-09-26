@@ -1,5 +1,6 @@
 import React from 'react';
-import type { HeroContent } from '../types';
+// Fix: Added file extension to import path
+import type { HeroContent } from '../types.ts';
 
 interface HeroProps {
   content: HeroContent;

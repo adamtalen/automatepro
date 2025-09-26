@@ -1,245 +1,159 @@
 import React from 'react';
-import type { Content } from '../types';
+// Fix: Added file extension to import path
+import type { AllContent } from '../types.ts';
 
-const iconBaseProps = {
-  className: "h-12 w-12 text-cyan-500",
-  fill: "none",
-  viewBox: "0 0 24 24",
-  stroke: "currentColor",
-  strokeWidth: 1,
-};
+// Placeholder icons for demonstration
+const CodeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>;
+const ChartIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>;
+const BotIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 16v-2m8-8h2M4 12H2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M19.778 4.222l-1.414 1.414M4.222 19.778l1.414-1.414M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>;
+const CloudIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>;
 
-const iconBasePropsExamples = {
-    ...iconBaseProps,
-    className: "h-8 w-8 text-cyan-600 flex-shrink-0 mt-1",
-};
+const ECommerceIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>;
+const HrIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>;
+const MarketingIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-2.236 9.168-5.514M15 13h-3" /></svg>;
+const FinanceIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
 
-const DataProcessingIcon = () => (
-    <svg {...iconBaseProps}><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>
-);
-
-const WorkflowIcon = () => (
-    <svg {...iconBaseProps}><path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6.75A2.25 2.25 0 0111.25 4.5h1.5A2.25 2.25 0 0115 6.75V19m-6 0h6m-6 0H6.75A2.25 2.25 0 004.5 21.25v0A2.25 2.25 0 006.75 19h2.25m6 0h2.25a2.25 2.25 0 012.25 2.25v0a2.25 2.25 0 01-2.25-2.25H15" /></svg>
-);
-
-const IntegrationIcon = () => (
-    <svg {...iconBaseProps}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25z" /></svg>
-);
-
-const ReportingIcon = () => (
-    <svg {...iconBaseProps}><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" /></svg>
-);
-
-const EmailIcon = () => (
-    <svg {...iconBasePropsExamples}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-);
-const InvoiceIcon = () => (
-    <svg {...iconBasePropsExamples}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
-);
-const ReportIcon = () => (
-    <svg {...iconBasePropsExamples}><path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.871a3 3 0 01-.879-2.122v-1.007M15 15.75a3 3 0 00-3-3M15 15.75a3 3 0 01-3-3m-3.75 0A3.75 3.75 0 0112 6v2.25M16.5 12a3.75 3.75 0 00-7.5 0" /></svg>
-);
-const CrmIcon = () => (
-    <svg {...iconBasePropsExamples}><path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962c.57-1.037 1.253-2.022 2.062-2.962m-2.062 2.962a3.5 3.5 0 01-3.5-3.5V7.5a3.5 3.5 0 013.5-3.5h7a3.5 3.5 0 013.5 3.5v1.5a3.5 3.5 0 01-3.5 3.5m-7.5-2.962v.003c.571 1.036 1.254 2.022 2.062 2.962m-2.062-2.962V7.5a3.5 3.5 0 013.5-3.5h3.5a3.5 3.5 0 013.5 3.5v3.5a3.5 3.5 0 01-3.5 3.5H9.75" /></svg>
-);
-
-export const content: Content = {
-    en: {
-        header: {
-            logo: "AutomatePro AI",
-            nav: { services: "Services", examples: "Examples", contact: "Contact" },
-        },
-        hero: {
-            heading: "Automate Your Business with AI",
-            subheading: "We build custom AI-powered workflows to streamline your operations, save time, and boost profitability.",
-            ctaButton: "Get a Free Consultation",
-        },
-        services: {
-            title: "Our AI Automation Services",
-            description: [
-                "We specialize in creating intelligent automation solutions tailored to your unique business needs.",
-                "From simplifying complex data workflows to integrating smart AI into your daily operations, we're here to help you unlock your business's full potential."
-            ],
-            services: [
-                { icon: <DataProcessingIcon />, title: "Intelligent Data Processing", description: "Automate data extraction, cleaning, and analysis from any source, including documents, emails, and databases." },
-                { icon: <WorkflowIcon />, title: "Custom Workflow Automation", description: "Design and implement end-to-end automated workflows for tasks like invoicing, customer onboarding, and report generation." },
-                { icon: <IntegrationIcon />, title: "AI System Integration", description: "Seamlessly connect your existing software (CRM, ERP, etc.) with powerful AI models like Gemini to enhance their capabilities." },
-                { icon: <ReportingIcon />, title: "Smart Analytics & Reporting", description: "Generate insightful reports and dashboards automatically, allowing you to make data-driven decisions faster." },
-            ],
-        },
-        automationExamples: {
-            title: "Real-World Automation Examples",
-            examples: [
-                { icon: <EmailIcon />, title: "Email Triage & Routing", for: "Customer Support Teams", description: "AI analyzes incoming support emails, categorizes them by urgency and topic, and routes them to the right agent.", roi: "30% faster response times" },
-                { icon: <InvoiceIcon />, title: "Invoice Data Extraction", for: "Accounting Departments", description: "Automatically extracts key information like invoice number, amount, and due date from PDF invoices and enters it into your accounting software.", roi: "85% reduction in manual data entry" },
-                { icon: <ReportIcon />, title: "Monthly Performance Reports", for: "Marketing Agencies", description: "Aggregates data from Google Analytics, social media, and ad platforms to auto-generate comprehensive client performance reports.", roi: "Saves 20+ hours per month" },
-                { icon: <CrmIcon />, title: "CRM Lead Enrichment", for: "Sales Teams", description: "When a new lead is added to the CRM, AI automatically finds and adds relevant information like company size, industry, and social profiles.", roi: "50% more qualified leads" },
-            ],
-        },
-        ideaGenerator: {
-            title: "Get a Custom Automation Idea",
-            description: "Not sure where to start? Describe your business or a tedious task you'd like to automate, and our AI will generate a tailored workflow idea for you.",
-            placeholder: "e.g., a real estate agency that wants to automate client follow-ups and property matching...",
-            emailLabel: "Your Email Address",
-            emailPlaceholder: "Enter your email to see the magic",
-            buttonText: "Generate Workflow",
-            buttonLoadingText: "Generating...",
-            examplePrompt: "Try an example",
-            resultsTitle: "Your Custom AI Workflow",
-        },
-        cta: {
-            title: "Ready to Transform Your Business?",
-            ctaButton: "Let's Talk",
-        },
-        contact: {
-            title: "Get in Touch",
-            nameLabel: "Your Name",
-            companyLabel: "Company (Optional)",
-            phoneLabel: "Phone (Optional)",
-            emailLabel: "Your Email",
-            messageLabel: "How can we help you?",
-            submitButton: "Send Message",
-            submittingButton: "Sending...",
-        },
-        thankYou: {
-            title: "Thank You!",
-            message: "Your message has been sent successfully. We'll get back to you within 24 hours.",
-            backButton: "Back to Home",
-        },
-        footer: {
-            copyright: "© 2024 AutomatePro AI. All rights reserved.",
-        },
+export const content: AllContent = {
+  fr: {
+    header: {
+      languageSwitcher: 'English',
+      navLinks: [
+        { href: '#services', label: 'Services' },
+        { href: '#examples', label: 'Exemples' },
+        { href: '#idea-generator', label: 'Générateur d\'idées' },
+        { href: '#contact-form', label: 'Contact' },
+      ],
     },
-    fr: {
-        header: {
-            logo: "AutomatePro IA",
-            nav: { services: "Services", examples: "Exemples", contact: "Contact" },
-        },
-        hero: {
-            heading: "Automatisez Votre Entreprise avec l'IA",
-            subheading: "Nous créons des workflows personnalisés basés sur l'IA pour optimiser vos opérations, gagner du temps et augmenter votre rentabilité.",
-            ctaButton: "Obtenir une Consultation Gratuite",
-        },
-        services: {
-            title: "Nos Services d'Automatisation IA",
-            description: [
-                "Nous sommes spécialisés dans la création de solutions d'automatisation intelligentes adaptées à vos besoins métier uniques.",
-                "De la simplification des flux de données complexes à l'intégration d'une IA intelligente dans vos opérations quotidiennes, nous vous aidons à libérer tout le potentiel de votre entreprise."
-            ],
-            services: [
-                { icon: <DataProcessingIcon />, title: "Traitement Intelligent des Données", description: "Automatisez l'extraction, le nettoyage et l'analyse de données de n'importe quelle source (documents, e-mails, bases de données)." },
-                { icon: <WorkflowIcon />, title: "Automatisation de Workflows", description: "Concevez et mettez en œuvre des workflows automatisés de bout en bout pour la facturation, l'accueil des clients et la génération de rapports." },
-                { icon: <IntegrationIcon />, title: "Intégration de Systèmes d'IA", description: "Connectez vos logiciels existants (CRM, ERP, etc.) avec de puissants modèles d'IA comme Gemini pour améliorer leurs capacités." },
-                { icon: <ReportingIcon />, title: "Analyses et Rapports Intelligents", description: "Générez automatiquement des rapports et des tableaux de bord pertinents pour prendre des décisions basées sur les données plus rapidement." },
-            ],
-        },
-        automationExamples: {
-            title: "Exemples Concrets d'Automatisation",
-            examples: [
-                { icon: <EmailIcon />, title: "Tri et Routage d'E-mails", for: "Équipes de Support Client", description: "L'IA analyse les e-mails de support, les classe par urgence et sujet, et les dirige vers le bon agent.", roi: "Temps de réponse 30% plus rapide" },
-                { icon: <InvoiceIcon />, title: "Extraction de Données de Factures", for: "Services Comptables", description: "Extrait automatiquement les informations clés des factures PDF (numéro, montant, etc.) et les saisit dans votre logiciel comptable.", roi: "85% de réduction de la saisie manuelle" },
-                { icon: <ReportIcon />, title: "Rapports de Performance Mensuels", for: "Agences Marketing", description: "Agrège les données de Google Analytics, des réseaux sociaux et des pubs pour générer automatiquement des rapports de performance pour les clients.", roi: "Économie de 20+ heures par mois" },
-                { icon: <CrmIcon />, title: "Enrichissement de Leads CRM", for: "Équipes Commerciales", description: "Lorsqu'un nouveau lead est ajouté au CRM, l'IA trouve et ajoute automatiquement des informations pertinentes (taille de l'entreprise, secteur, etc.).", roi: "50% de leads plus qualifiés" },
-            ],
-        },
-        ideaGenerator: {
-            title: "Obtenez une Idée d'Automatisation",
-            description: "Vous ne savez pas par où commencer ? Décrivez votre entreprise ou une tâche fastidieuse, et notre IA générera une idée de workflow sur mesure pour vous.",
-            placeholder: "ex: une agence immobilière qui souhaite automatiser le suivi des clients...",
-            emailLabel: "Votre Adresse E-mail",
-            emailPlaceholder: "Entrez votre e-mail pour voir la magie",
-            buttonText: "Générer le Workflow",
-            buttonLoadingText: "Génération...",
-            examplePrompt: "Essayer un exemple",
-            resultsTitle: "Votre Workflow IA Personnalisé",
-        },
-        cta: {
-            title: "Prêt à Transformer Votre Entreprise ?",
-            ctaButton: "Discutons-en",
-        },
-        contact: {
-            title: "Nous Contacter",
-            nameLabel: "Votre Nom",
-            companyLabel: "Société (Optionnel)",
-            phoneLabel: "Téléphone (Optionnel)",
-            emailLabel: "Votre E-mail",
-            messageLabel: "Comment pouvons-nous vous aider ?",
-            submitButton: "Envoyer le Message",
-            submittingButton: "Envoi en cours...",
-        },
-        thankYou: {
-            title: "Merci !",
-            message: "Votre message a été envoyé avec succès. Nous vous répondrons dans les 24 heures.",
-            backButton: "Retour à l'Accueil",
-        },
-        footer: {
-            copyright: "© 2024 AutomatePro IA. Tous droits réservés.",
-        },
+    hero: {
+      heading: 'Automatisez Votre Entreprise avec l\'IA et N8N',
+      subheading: 'Nous concevons des solutions d\'automatisation sur mesure pour les entreprises, en combinant la puissance de l\'IA de Google Gemini avec la flexibilité de N8N pour optimiser vos processus, réduire les coûts et augmenter l\'efficacité.',
+      ctaButton: 'Obtenez votre consultation gratuite',
     },
-    it: {
-        header: {
-            logo: "AutomatePro AI",
-            nav: { services: "Servizi", examples: "Esempi", contact: "Contatti" },
-        },
-        hero: {
-            heading: "Automatizza la Tua Azienda con l'IA",
-            subheading: "Creiamo flussi di lavoro personalizzati basati sull'IA per ottimizzare le tue operazioni, risparmiare tempo e aumentare la redditività.",
-            ctaButton: "Richiedi una Consulenza Gratuita",
-        },
-        services: {
-            title: "I Nostri Servizi di Automazione AI",
-            description: [
-                "Siamo specializzati nella creazione di soluzioni di automazione intelligenti su misura per le tue specifiche esigenze aziendali.",
-                "Dalla semplificazione di flussi di dati complessi all'integrazione di IA intelligente nelle tue operazioni quotidiane, siamo qui per aiutarti a sbloccare il pieno potenziale della tua azienda."
-            ],
-            services: [
-                { icon: <DataProcessingIcon />, title: "Elaborazione Dati Intelligente", description: "Automatizza l'estrazione, la pulizia e l'analisi dei dati da qualsiasi fonte, inclusi documenti, e-mail e database." },
-                { icon: <WorkflowIcon />, title: "Automazione Flussi di Lavoro", description: "Progetta e implementa flussi di lavoro automatizzati end-to-end per attività come fatturazione, onboarding dei clienti e generazione di report." },
-                { icon: <IntegrationIcon />, title: "Integrazione di Sistemi AI", description: "Collega senza problemi il tuo software esistente (CRM, ERP, ecc.) con potenti modelli di IA come Gemini per potenziarne le capacità." },
-                { icon: <ReportingIcon />, title: "Analisi e Report Intelligenti", description: "Genera automaticamente report e dashboard approfonditi, consentendoti di prendere decisioni basate sui dati più velocemente." },
-            ],
-        },
-        automationExamples: {
-            title: "Esempi Reali di Automazione",
-            examples: [
-                { icon: <EmailIcon />, title: "Smistamento e Instradamento Email", for: "Team di Assistenza Clienti", description: "L'IA analizza le email di supporto in arrivo, le classifica per urgenza e argomento e le instrada all'agente giusto.", roi: "Tempi di risposta più rapidi del 30%" },
-                { icon: <InvoiceIcon />, title: "Estrazione Dati da Fatture", for: "Dipartimenti Contabili", description: "Estrae automaticamente informazioni chiave come numero di fattura, importo e data di scadenza da fatture PDF e le inserisce nel tuo software di contabilità.", roi: "Riduzione dell'85% dell'inserimento manuale dei dati" },
-                { icon: <ReportIcon />, title: "Report Mensili sulle Performance", for: "Agenzie di Marketing", description: "Aggrega dati da Google Analytics, social media e piattaforme pubblicitarie per generare automaticamente report completi sulle performance dei clienti.", roi: "Risparmia oltre 20 ore al mese" },
-                { icon: <CrmIcon />, title: "Arricchimento Lead CRM", for: "Team di Vendita", description: "Quando un nuovo lead viene aggiunto al CRM, l'IA trova e aggiunge automaticamente informazioni pertinenti come dimensioni dell'azienda, settore e profili social.", roi: "50% di lead più qualificati" },
-            ],
-        },
-        ideaGenerator: {
-            title: "Ottieni un'Idea di Automazione",
-            description: "Non sai da dove cominciare? Descrivi la tua attività o un compito noioso che vorresti automatizzare e la nostra IA genererà un'idea di flusso di lavoro su misura per te.",
-            placeholder: "es: un'agenzia immobiliare che vuole automatizzare il follow-up dei clienti...",
-            emailLabel: "Il Tuo Indirizzo Email",
-            emailPlaceholder: "Inserisci la tua email per vedere la magia",
-            buttonText: "Genera Flusso di Lavoro",
-            buttonLoadingText: "Generazione in corso...",
-            examplePrompt: "Prova un esempio",
-            resultsTitle: "Il Tuo Flusso di Lavoro AI Personalizzato",
-        },
-        cta: {
-            title: "Pronto a Trasformare la Tua Attività?",
-            ctaButton: "Parliamone",
-        },
-        contact: {
-            title: "Contattaci",
-            nameLabel: "Il Tuo Nome",
-            companyLabel: "Azienda (Opzionale)",
-            phoneLabel: "Telefono (Opzionale)",
-            emailLabel: "La Tua Email",
-            messageLabel: "Come possiamo aiutarti?",
-            submitButton: "Invia Messaggio",
-            submittingButton: "Invio in corso...",
-        },
-        thankYou: {
-            title: "Grazie!",
-            message: "Il tuo messaggio è stato inviato con successo. Ti risponderemo entro 24 ore.",
-            backButton: "Torna alla Home",
-        },
-        footer: {
-            copyright: "© 2024 AutomatePro AI. Tutti i diritti riservati.",
-        },
+    services: {
+        title: 'Nos Services d\'Automatisation',
+        description: [
+            "Nous analysons vos processus métiers pour identifier les opportunités d'automatisation les plus impactantes. Ensuite, nous construisons et déployons des workflows intelligents et robustes qui s'intègrent parfaitement à vos outils existants.",
+            "De la simple tâche répétitive à l'orchestration complexe de plusieurs applications, nous vous aidons à libérer le plein potentiel de votre entreprise."
+        ],
+        services: [
+          { icon: <CodeIcon />, title: 'Développement sur Mesure', description: 'Création de workflows N8N personnalisés et de nœuds customisés pour répondre à des besoins uniques.' },
+          { icon: <ChartIcon />, title: 'Optimisation de Processus', description: 'Analyse et refonte de vos opérations pour une efficacité maximale grâce à l\'automatisation.' },
+          { icon: <BotIcon />, title: 'Intégration d\'IA', description: 'Incorporation de modèles d\'IA (comme Google Gemini) pour des tâches de traitement de langage, d\'analyse de données, etc.' },
+          { icon: <CloudIcon />, title: 'Intégration d\'API', description: 'Connexion de tous vos services cloud et applications (CRM, ERP, etc.) en un système unifié.' },
+        ],
     },
+    automationExamples: {
+        title: 'Exemples Concrets d\'Automatisation',
+        examples: [
+            { icon: <ECommerceIcon />, title: 'Gestion de Commandes', for: 'Pour E-commerce', description: 'Automatisation de la confirmation de commande, de la mise à jour des stocks et de la notification d\'expédition.', roi: 'Économie de 15h/semaine' },
+            { icon: <HrIcon />, title: 'Onboarding RH', for: 'Pour les Ressources Humaines', description: 'Création automatique de comptes, envoi de documents et planification de formations pour les nouvelles recrues.', roi: 'Réduction de 80% du temps d\'intégration' },
+            { icon: <MarketingIcon />, title: 'Génération de Leads', for: 'Pour le Marketing', description: 'Qualification automatique des leads depuis les formulaires, enrichissement des données et assignation aux commerciaux.', roi: 'Augmentation de 30% des leads qualifiés' },
+            { icon: <FinanceIcon />, title: 'Reporting Financier', for: 'Pour la Finance', description: 'Extraction automatique de données de plusieurs sources pour générer des rapports hebdomadaires.', roi: 'Rapports 95% plus rapides et sans erreur' },
+        ],
+    },
+    ideaGenerator: {
+        title: 'Trouvez Votre Prochaine Automatisation',
+        description: 'Décrivez une tâche ou un processus dans votre entreprise, et notre IA vous proposera un workflow d\'automatisation potentiel que nous pourrions construire pour vous.',
+        placeholder: 'Ex: "Je suis un restaurateur à Antibes et je veux automatiser la prise de réservations et les commandes fournisseurs..."',
+        emailLabel: 'Votre adresse e-mail',
+        emailPlaceholder: 'Saisissez votre e-mail pour voir les résultats',
+        buttonText: 'Générer mon Workflow',
+        buttonLoadingText: 'Génération en cours...',
+        examplePrompt: 'Essayez un exemple',
+        resultsTitle: 'Votre Workflow d\'Automatisation Suggéré :',
+    },
+    cta: {
+        title: 'Prêt à Transformer Votre Entreprise ?',
+        ctaButton: 'Discutons de votre projet',
+    },
+    contact: {
+        title: 'Contactez-nous',
+        nameLabel: 'Nom',
+        companyLabel: 'Entreprise (Optionnel)',
+        phoneLabel: 'Téléphone (Optionnel)',
+        emailLabel: 'Adresse e-mail',
+        messageLabel: 'Votre message',
+        submitButton: 'Envoyer ma demande',
+        submittingButton: 'Envoi en cours...',
+    },
+    thankYou: {
+        title: 'Merci !',
+        message: 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.',
+        backButton: 'Retour à l\'accueil',
+    },
+    footer: {
+        copyright: `© ${new Date().getFullYear()} AI Automation Services. Tous droits réservés.`,
+    },
+  },
+  en: {
+    header: {
+      languageSwitcher: 'Français',
+      navLinks: [
+        { href: '#services', label: 'Services' },
+        { href: '#examples', label: 'Examples' },
+        { href: '#idea-generator', label: 'Idea Generator' },
+        { href: '#contact-form', label: 'Contact' },
+      ],
+    },
+    hero: {
+      heading: 'Automate Your Business with AI and N8N',
+      subheading: 'We design custom automation solutions for businesses, combining the power of Google Gemini AI with the flexibility of N8N to optimize your processes, reduce costs, and increase efficiency.',
+      ctaButton: 'Get Your Free Consultation',
+    },
+    services: {
+        title: 'Our Automation Services',
+        description: [
+            "We analyze your business processes to identify the most impactful automation opportunities. Then, we build and deploy robust, intelligent workflows that integrate seamlessly with your existing tools.",
+            "From simple repetitive tasks to complex orchestration of multiple applications, we help you unlock your business's full potential."
+        ],
+        services: [
+          { icon: <CodeIcon />, title: 'Custom Development', description: 'Creation of personalized N8N workflows and custom nodes to meet unique needs.' },
+          { icon: <ChartIcon />, title: 'Process Optimization', description: 'Analysis and redesign of your operations for maximum efficiency through automation.' },
+          { icon: <BotIcon />, title: 'AI Integration', description: 'Incorporation of AI models (like Google Gemini) for language processing, data analysis tasks, etc.' },
+          { icon: <CloudIcon />, title: 'API Integration', description: 'Connecting all your cloud services and applications (CRM, ERP, etc.) into a unified system.' },
+        ],
+    },
+    automationExamples: {
+        title: 'Concrete Automation Examples',
+        examples: [
+            { icon: <ECommerceIcon />, title: 'Order Management', for: 'For E-commerce', description: 'Automate order confirmations, stock updates, and shipping notifications.', roi: 'Saves 15h/week' },
+            { icon: <HrIcon />, title: 'HR Onboarding', for: 'For Human Resources', description: 'Automatically create accounts, send documents, and schedule training for new hires.', roi: '80% reduction in onboarding time' },
+            { icon: <MarketingIcon />, title: 'Lead Generation', for: 'For Marketing', description: 'Automatically qualify leads from forms, enrich data, and assign them to sales reps.', roi: '30% increase in qualified leads' },
+            { icon: <FinanceIcon />, title: 'Financial Reporting', for: 'For Finance', description: 'Automatically extract data from multiple sources to generate weekly reports.', roi: '95% faster, error-free reports' },
+        ],
+    },
+    ideaGenerator: {
+        title: 'Find Your Next Automation',
+        description: 'Describe a task or process in your business, and our AI will suggest a potential automation workflow we could build for you.',
+        placeholder: 'E.g., "I own a restaurant in Antibes and want to automate booking reservations and supplier orders..."',
+        emailLabel: 'Your Email Address',
+        emailPlaceholder: 'Enter your email to see the results',
+        buttonText: 'Generate My Workflow',
+        buttonLoadingText: 'Generating...',
+        examplePrompt: 'Try an example',
+        resultsTitle: 'Your Suggested Automation Workflow:',
+    },
+    cta: {
+        title: 'Ready to Transform Your Business?',
+        ctaButton: 'Let\'s Discuss Your Project',
+    },
+    contact: {
+        title: 'Contact Us',
+        nameLabel: 'Name',
+        companyLabel: 'Company (Optional)',
+        phoneLabel: 'Phone (Optional)',
+        emailLabel: 'Email Address',
+        messageLabel: 'Your Message',
+        submitButton: 'Send My Request',
+        submittingButton: 'Sending...',
+    },
+    thankYou: {
+        title: 'Thank You!',
+        message: 'Your message has been sent successfully. We will get back to you as soon as possible.',
+        backButton: 'Back to Home',
+    },
+    footer: {
+        copyright: `© ${new Date().getFullYear()} AI Automation Services. All rights reserved.`,
+    },
+  },
 };

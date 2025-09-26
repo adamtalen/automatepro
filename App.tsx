@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import AutomationExamples from './components/AutomationExamples';
-import IdeaGenerator from './components/IdeaGenerator';
-import CallToAction from './components/CallToAction';
-import ContactForm from './components/ContactForm';
-import ThankYouPage from './components/ThankYouPage';
-import Footer from './components/Footer';
-import { content } from './constants/content';
-import type { Language, FormData } from './types';
+// Fix: Added file extensions to imports
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import Services from './components/Services.tsx';
+import AutomationExamples from './components/AutomationExamples.tsx';
+import IdeaGenerator from './components/IdeaGenerator.tsx';
+import CallToAction from './components/CallToAction.tsx';
+import ContactForm from './components/ContactForm.tsx';
+import ThankYouPage from './components/ThankYouPage.tsx';
+import Footer from './components/Footer.tsx';
+import { content } from './constants/content.ts';
+import type { Language, FormData } from './types.ts';
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('fr');

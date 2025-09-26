@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import type { IdeaGeneratorContent, WorkflowStep } from '../types';
-import { N8NIcon, TriggerIcon, GeminiIcon, StepIcon } from './icons/NodeIcons';
+// Fix: Added file extensions to import paths
+import type { IdeaGeneratorContent, WorkflowStep } from '../types.ts';
+import { N8NIcon, TriggerIcon, GeminiIcon, StepIcon } from './icons/NodeIcons.tsx';
 
 interface IdeaGeneratorProps {
   content: IdeaGeneratorContent;

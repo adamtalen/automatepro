@@ -1,5 +1,6 @@
 import React from 'react';
-import type { ServicesContent, Service } from '../types';
+// Fix: Added file extension to import path
+import type { ServicesContent, Service } from '../types.ts';
 
 interface ServicesProps {
   content: ServicesContent;

@@ -1,18 +1,49 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
-export type Language = 'en' | 'fr' | 'it';
+export type Language = 'en' | 'fr';
 
 export interface FormData {
-    name: string;
-    company: string;
-    phone: string;
-    email: string;
-    message: string;
+  name: string;
+  company: string;
+  phone: string;
+  email: string;
+  message: string;
 }
 
-export interface WorkflowStep {
+export interface HeaderContent {
+  languageSwitcher: string;
+  navLinks: { href: string; label: string }[];
+}
+
+export interface HeroContent {
+  heading: string;
+  subheading: string;
+  ctaButton: string;
+}
+
+export interface Service {
+  icon: ReactNode;
   title: string;
   description: string;
+}
+
+export interface ServicesContent {
+  title: string;
+  description: string[];
+  services: Service[];
+}
+
+export interface AutomationExample {
+  icon: ReactNode;
+  title: string;
+  for: string;
+  description: string;
+  roi: string;
+}
+
+export interface AutomationExamplesContent {
+  title: string;
+  examples: AutomationExample[];
 }
 
 export interface IdeaGeneratorContent {
@@ -27,44 +58,9 @@ export interface IdeaGeneratorContent {
     resultsTitle: string;
 }
 
-export interface HeaderContent {
-  logo: string;
-  nav: {
-    services: string;
-    examples: string;
-    contact: string;
-  };
-}
-
-export interface HeroContent {
-  heading: string;
-  subheading: string;
-  ctaButton: string;
-}
-
-export interface Service {
-  icon: React.ReactElement;
+export interface WorkflowStep {
   title: string;
   description: string;
-}
-
-export interface ServicesContent {
-  title: string;
-  description: string[];
-  services: Service[];
-}
-
-export interface AutomationExample {
-  icon: React.ReactElement;
-  title: string;
-  for: string;
-  description: string;
-  roi: string;
-}
-
-export interface AutomationExamplesContent {
-  title: string;
-  examples: AutomationExample[];
 }
 
 export interface CallToActionContent {
@@ -93,7 +89,7 @@ export interface FooterContent {
   copyright: string;
 }
 
-export interface AppContent {
+export interface Content {
   header: HeaderContent;
   hero: HeroContent;
   services: ServicesContent;
@@ -105,8 +101,6 @@ export interface AppContent {
   footer: FooterContent;
 }
 
-export interface Content {
-  en: AppContent;
-  fr: AppContent;
-  it: AppContent;
-}
+export type AllContent = {
+  [key in Language]: Content;
+};

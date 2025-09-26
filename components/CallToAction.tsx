@@ -1,5 +1,6 @@
 import React from 'react';
-import type { CallToActionContent } from '../types';
+// Fix: Added file extension to import path
+import type { CallToActionContent } from '../types.ts';
 
 interface CallToActionProps {
   content: CallToActionContent;
