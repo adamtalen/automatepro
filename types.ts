@@ -10,49 +10,6 @@ export interface FormData {
     message: string;
 }
 
-export interface HeaderContent {
-  logo: string;
-  nav: {
-    services: string;
-
-    examples: string;
-    contact: string;
-  };
-}
-
-export interface HeroContent {
-  heading: string;
-  subheading: string;
-  ctaButton: string;
-}
-
-export interface Service {
-  // Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-  icon: React.ReactElement;
-  title: string;
-  description: string;
-}
-
-export interface ServicesContent {
-  title: string;
-  description: string[];
-  services: Service[];
-}
-
-export interface AutomationExample {
-  // Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-  icon: React.ReactElement;
-  title: string;
-  for: string;
-  description: string;
-  roi: string;
-}
-
-export interface AutomationExamplesContent {
-  title: string;
-  examples: AutomationExample[];
-}
-
 export interface WorkflowStep {
   title: string;
   description: string;
@@ -68,6 +25,46 @@ export interface IdeaGeneratorContent {
     buttonLoadingText: string;
     examplePrompt: string;
     resultsTitle: string;
+}
+
+export interface HeaderContent {
+  logo: string;
+  nav: {
+    services: string;
+    examples: string;
+    contact: string;
+  };
+}
+
+export interface HeroContent {
+  heading: string;
+  subheading: string;
+  ctaButton: string;
+}
+
+export interface Service {
+  icon: React.ReactElement;
+  title: string;
+  description: string;
+}
+
+export interface ServicesContent {
+  title: string;
+  description: string[];
+  services: Service[];
+}
+
+export interface AutomationExample {
+  icon: React.ReactElement;
+  title: string;
+  for: string;
+  description: string;
+  roi: string;
+}
+
+export interface AutomationExamplesContent {
+  title: string;
+  examples: AutomationExample[];
 }
 
 export interface CallToActionContent {

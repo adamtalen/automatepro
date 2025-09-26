@@ -7,9 +7,11 @@ interface IdeaGeneratorProps {
 }
 
 // ====================================================================================
-// IMPORTANT: Replace this with your actual N8N Production Webhook URL
+// IMPORTANT: This is the user's configured N8N Production Webhook URL 
 // ====================================================================================
-const N8N_WEBHOOK_URL = 'https://n8n.your-domain.com/webhook/12345-abcde-67890-fghij';
+// TEST URL const N8N_WEBHOOK_URL = 'https://n8nserver.wbcpartners.com/webhook-test/5b877d84-c425-4b95-b884-457cac1de7de';
+
+const N8N_WEBHOOK_URL = 'https://n8nserver.wbcpartners.com/webhook/5b877d84-c425-4b95-b884-457cac1de7de';
 // ====================================================================================
 
 
@@ -67,7 +69,7 @@ const IdeaGenerator: React.FC<IdeaGeneratorProps> = ({ content }) => {
         return;
     }
     
-    if (N8N_WEBHOOK_URL === 'https://n8n.your-domain.com/webhook/12345-abcde-67890-fghij') {
+    if (N8N_WEBHOOK_URL.includes('PASTE_YOUR_N8N_WEBHOOK_URL_HERE')) {
         setError('The N8N Webhook URL has not been configured by the developer. Please replace the example URL in components/IdeaGenerator.tsx.');
         return;
     }
@@ -91,13 +93,11 @@ const IdeaGenerator: React.FC<IdeaGeneratorProps> = ({ content }) => {
 
         const result = await response.json();
         
-        // N8N might wrap the result, so we look for the likely array key
         const steps = result.steps || result.workflow || result.data || result;
         
         if (Array.isArray(steps)) {
             setWorkflow(steps);
         } else {
-            // Attempt to parse if Gemini returned a stringified JSON
              try {
                 const parsedSteps = JSON.parse(steps);
                 if (Array.isArray(parsedSteps)) {
