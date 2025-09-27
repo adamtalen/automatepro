@@ -63,6 +63,16 @@ export interface IdeaGeneratorContent {
     resultsTitle: string;
 }
 
+export interface FormTestContent {
+    title: string;
+    description: string;
+    queryPlaceholder: string;
+    emailPlaceholder: string;
+    buttonText: string;
+    buttonLoadingText: string;
+    resultsTitle: string;
+}
+
 export interface WorkflowStep {
   title: string;
   description: string;
@@ -100,6 +110,7 @@ export interface AppContent {
   services: ServicesContent;
   automationExamples: AutomationExamplesContent;
   ideaGenerator: IdeaGeneratorContent;
+  formTest: FormTestContent;
   cta: CallToActionContent;
   contact: ContactContent;
   thankYou: ThankYouContent;

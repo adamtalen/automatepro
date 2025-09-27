@@ -5,6 +5,7 @@ import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
 import AutomationExamples from './components/AutomationExamples.tsx';
 import IdeaGenerator from './components/IdeaGenerator.tsx';
+import FormTest from './components/FormTest.tsx';
 import CallToAction from './components/CallToAction.tsx';
 import ContactForm from './components/ContactForm.tsx';
 import ThankYouPage from './components/ThankYouPage.tsx';
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               <Services content={currentContent.services} />
               <AutomationExamples content={currentContent.automationExamples} />
               <IdeaGenerator content={currentContent.ideaGenerator} />
+              <FormTest content={currentContent.formTest} />
               <CallToAction content={currentContent.cta} />
               <ContactForm content={currentContent.contact} onSuccess={handleFormSuccess} />
             </main>

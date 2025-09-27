@@ -1,93 +1,124 @@
 import React, { useState } from 'react';
-import type { Language, HeaderContent } from '../types';
+// Fix: Added file extension to import path
+import type { HeaderContent, Language } from '../types.ts';
 
 interface HeaderProps {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  setLanguage: (language: Language) => void;
   content: HeaderContent;
 }
+
+const LanguageSwitcher: React.FC<{ language: Language; setLanguage: (language: Language) => void; isMobile?: boolean }> = ({ language, setLanguage, isMobile }) => {
+    const languages: { code: Language; label: string }[] = [
+        { code: 'en', label: 'EN' },
+        { code: 'fr', label: 'FR' },
+        { code: 'it', label: 'IT' },
+    ];
+
+    const baseClasses = "flex items-center space-x-2 text-sm";
+    const mobileClasses = "px-4 pt-4 pb-2 border-t border-slate-200";
+
+    return (
+        <div className={`${baseClasses} ${isMobile ? mobileClasses : ''}`}>
+            {languages.map((lang, index) => (
+                <React.Fragment key={lang.code}>
+                    <button
+                        onClick={() => setLanguage(lang.code)}
+                        className={`px-3 py-1 rounded-md transition-colors font-medium ${
+                            language === lang.code ? 'bg-cyan-500 text-white' : 'text-slate-600 hover:bg-slate-200'
+                        }`}
+                    >
+                        {lang.label}
+                    </button>
+                    {index < languages.length - 1 && <span className="text-slate-300">|</span>}
+                </React.Fragment>
+            ))}
+        </div>
+    );
+};
 
 const Header: React.FC<HeaderProps> = ({ language, setLanguage, content }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleLanguage = () => {
-    const newLang = language === 'fr' ? 'en' : language === 'en' ? 'it' : 'fr';
-    setLanguage(newLang);
-  };
-  
-  const getLanguageName = (lang: Language) => {
-      if (lang === 'en') return 'EN';
-      if (lang === 'fr') return 'FR';
-      return 'IT';
-  }
+  const navLinks = [
+    { href: '#services', text: content.nav.services },
+    { href: '#examples', text: content.nav.examples },
+    { href: '#idea-generator', text: content.nav.ideaGenerator },
+    { href: '#contact-form', text: content.nav.contact },
+  ];
 
   return (
-    <header className="py-4 sm:py-6">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <a href="#" className="flex items-center space-x-2">
-            <svg className="h-8 w-8 text-cyan-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 16v-2m8-8h2M4 12H2m15.364 6.364l1.414 1.414M4.222 4.222l1.414 1.414M19.778 4.222l-1.414 1.414M4.222 19.778l1.414-1.414M12 18a6 6 0 100-12 6 6 0 000 12z" />
-            </svg>
-            <span className="font-bold text-xl text-slate-800">{content.logo}</span>
-          </a>
+        <div className="flex items-center justify-between h-20">
+          <div className="flex-shrink-0">
+            <a href="#" className="text-2xl font-bold text-slate-900">
+              {content.logo}
+            </a>
+          </div>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">
-              {content.nav.services}
-            </a>
-            <a href="#examples" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">
-              {content.nav.examples}
-            </a>
-            <a href="#idea-generator" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">
-              {content.nav.ideaGenerator}
-            </a>
-            <a href="#contact-form" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">
-              {content.nav.contact}
-            </a>
-            <button onClick={toggleLanguage} className="text-sm font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md hover:bg-slate-200 transition-colors w-12">
-              {getLanguageName(language)}
-            </button>
+            {navLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-slate-600 hover:text-cyan-500 transition-colors font-medium"
+              >
+                {link.text}
+              </a>
+            ))}
           </nav>
 
-          {/* Mobile Nav Toggle */}
-          <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600 hover:text-slate-900">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex items-center space-x-4">
+            {/* Desktop Language Switcher */}
+            <div className="hidden md:flex">
+                <LanguageSwitcher language={language} setLanguage={setLanguage} />
+            </div>
+            
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500"
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                <span className="sr-only">Open main menu</span>
                 {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  </svg>
                 )}
-              </svg>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="mt-4 md:hidden bg-white rounded-lg shadow-lg p-4">
-            <nav className="flex flex-col space-y-4">
-               <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium px-2 py-1 rounded-md">
-                {content.nav.services}
-              </a>
-               <a href="#examples" onClick={() => setIsMenuOpen(false)} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium px-2 py-1 rounded-md">
-                {content.nav.examples}
-              </a>
-               <a href="#idea-generator" onClick={() => setIsMenuOpen(false)} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium px-2 py-1 rounded-md">
-                {content.nav.ideaGenerator}
-              </a>
-               <a href="#contact-form" onClick={() => setIsMenuOpen(false)} className="text-slate-600 hover:text-cyan-600 transition-colors font-medium px-2 py-1 rounded-md">
-                {content.nav.contact}
-              </a>
-              <button onClick={() => { toggleLanguage(); setIsMenuOpen(false); }} className="text-sm font-semibold bg-slate-100 text-slate-700 px-3 py-2 rounded-md hover:bg-slate-200 transition-colors text-left">
-                {getLanguageName(language)}
-              </button>
-            </nav>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden" id="mobile-menu">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-slate-600 hover:bg-slate-100 hover:text-cyan-500 block px-3 py-2 rounded-md text-base font-medium"
+              >
+                {link.text}
+              </a>
+            ))}
+          </div>
+          {/* Mobile Language Switcher */}
+          <LanguageSwitcher language={language} setLanguage={setLanguage} isMobile={true} />
+        </div>
+      )}
     </header>
   );
 };

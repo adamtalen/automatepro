@@ -138,6 +138,15 @@ export const content: Content = {
         examplePrompt: "Need inspiration? Try an example",
         resultsTitle: "Your Custom Automation ideas:",
     },
+    formTest: {
+        title: "Webhook Test Form",
+        description: "Use this form to send a simple test request to the N8N test webhook.",
+        queryPlaceholder: "Enter your test query here...",
+        emailPlaceholder: "Enter your email address",
+        buttonText: "Send Test Request",
+        buttonLoadingText: "Sending...",
+        resultsTitle: "Webhook Response:",
+    },
     cta: {
       title: "Ready to put your business on autopilot?",
       ctaButton: "Start Automating Today",
@@ -250,6 +259,15 @@ export const content: Content = {
         examplePrompt: "Besoin d'inspiration ? Essayez un exemple",
         resultsTitle: "Vos idées d'automatisation personnalisées :",
     },
+    formTest: {
+        title: "Formulaire de Test Webhook",
+        description: "Utilisez ce formulaire pour envoyer une simple requête de test au webhook de test N8N.",
+        queryPlaceholder: "Entrez votre requête de test ici...",
+        emailPlaceholder: "Entrez votre adresse e-mail",
+        buttonText: "Envoyer la requête de test",
+        buttonLoadingText: "Envoi en cours...",
+        resultsTitle: "Réponse du Webhook :",
+    },
     cta: {
       title: "Prêt à mettre votre entreprise en pilote automatique ?",
       ctaButton: "Commencez à automatiser aujourd'hui",
@@ -361,6 +379,15 @@ export const content: Content = {
         buttonLoadingText: "Generazione in corso...",
         examplePrompt: "Bisogno di ispirazione? Prova un esempio",
         resultsTitle: "Le tue idee di automazione personalizzate:",
+    },
+    formTest: {
+        title: "Modulo Test Webhook",
+        description: "Usa questo modulo per inviare una semplice richiesta di test al webhook di test di N8N.",
+        queryPlaceholder: "Inserisci qui la tua query di test...",
+        emailPlaceholder: "Inserisci il tuo indirizzo email",
+        buttonText: "Invia Richiesta di Test",
+        buttonLoadingText: "Invio in corso...",
+        resultsTitle: "Risposta dal Webhook:",
     },
     cta: {
       title: "Pronto a mettere la tua attività con il pilota automatico?",
